@@ -1,0 +1,46 @@
+.search-form {
+    margin: 3rem 0;
+}
+
+.search-form-content {
+    border: 2px solid black;
+    width: 75%;
+    margin: auto;
+    display: flex;  
+    background-color: var(--color-white); 
+    border-radius: .3rem;
+}
+
+.search-form-content-button {
+    padding: 0.75rem;
+    border: none;
+    background-color: var(--color-white);
+}
+
+.search-form-content-input {
+    width: 100%;
+    outline: none;
+    border: none;
+    margin-right: 1rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: .3rem;
+}
+
+.search-form-content:focus-within{
+    border: 2px solid var(--color-primary-hover);
+    transition: .3s border;
+}
+
+.search-form-content-button:hover {
+    cursor: pointer;
+}
+
+.search-form-content-button:focus {
+    outline: 1px solid var(--color-primary-hover);
+}
+
+.search-form-content-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    background-image: url('/static/recipes/images/marca-x.png');
+}

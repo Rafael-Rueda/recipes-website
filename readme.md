@@ -131,7 +131,7 @@ git pull origin <branch>
 ```
 cd  ~/app_repo
 git pull origin <branch>
-python3.9 -m venv .venv
+python3.9 -m venv venv
 . venv/bin/activate
 pip install -r requirements.txt
 pip install psycopg2

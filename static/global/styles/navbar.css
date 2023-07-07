@@ -1,0 +1,50 @@
+nav {
+    position: fixed;
+    height: 100%;
+    overflow-y: hidden;
+    top: 0;
+    left: 0;
+    width: 320px;
+    background-color: var(--color-primary-dark);
+    padding: 16px;
+    font-size: 24px;
+    border-right: 2px solid var(--color-primary-light);
+    transition: left .5s ease-in-out;
+    z-index: 10;
+}
+
+nav.collapsed {
+    left: -300px;
+}
+
+nav.expanded {
+    left: 0;
+}
+
+/* Logout */
+.logout {
+
+}
+
+.logout-button {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: var(--color-white);
+}
+
+.logout-button:hover, #page-navbar a:hover {
+    cursor: pointer;
+    color: var(--color-primary-light);
+}
+
+#page-navbar a {
+    color: var(--color-white);
+    font-size: 24px;
+    text-decoration: none;
+    font-family: var(--font-primary);
+}
+
+#page-navbar li {
+    margin-top: 16px;
+}

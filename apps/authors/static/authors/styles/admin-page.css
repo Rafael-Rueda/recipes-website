@@ -1,0 +1,52 @@
+.admin-panel {
+
+}
+
+.log-panel {
+
+}
+
+.log-panel h1 {
+    text-align: center;
+}
+
+.log-panel table {
+    margin: auto;
+    background-color: var(--color-primary-light);
+    border: 2px solid var(--color-black);
+    width: 90%;
+    margin: 8px auto;
+    padding: 8px;
+}
+
+.log-panel th,td {
+    border: 1px solid var(--color-black);
+    padding: 4px;
+    margin: 4px;
+    font-size: 24px;
+    font-family: var(--font-primary);
+    text-indent: 8px;
+}
+
+.log-panel th {
+    font-family: var(--font-headings);
+    text-align: center;
+    text-indent: 0;
+}
+
+.recipes-panel {
+
+}
+
+.recipes-panel h1 {
+    text-align: center;
+}
+
+.recipes-panel-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+}
+
+.admin-page-recipe-body {
+    display: grid !important;
+}
