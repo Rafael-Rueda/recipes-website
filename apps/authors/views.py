@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from django.http import Http404
@@ -38,7 +39,8 @@ def register_create(request):
     if modelform.is_valid():
         
         user = modelform.save(commit=False)
-        user.set_password(user.password)
+        password = modelform.cleaned_data.get('password')
+        user.set_password(password)
         user.save()
 
         del(request.session['data_form'])
