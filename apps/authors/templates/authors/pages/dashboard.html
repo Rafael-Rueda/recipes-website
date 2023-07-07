@@ -1,0 +1,28 @@
+{% extends 'global/bases/head-base.html' %}
+{% block body %} 
+    <body>
+        <div class="content-wrapper">
+        {% include 'global/partials/navbar.html' %}
+        {% include 'global/partials/header.html' %}
+        {% include 'global/partials/flash-messages.html' %}
+        <div class="dashboard-crud">
+            {% if recipe_selected %}
+                {% include 'authors/partials/editable-recipe-form.html' %}
+            {% endif %}
+            {% if create_allowed %}
+                {% include 'authors/partials/create-recipe-form.html' %}
+            {% endif %}
+            <div class="create-new-recipe">
+                <form action="{% url 'authors:dashboard-create' %}" method="get">
+                    <button type="submit" class="create-recipe">Create a new Recipe</button>
+                </form>
+            </div>
+        </div>
+        <div class="dashboard-recipes">
+            {% include 'authors/partials/editable-recipe.html' %}
+        </div>
+        {% include 'recipes/partials/pagination.html' %}
+        {% include 'global/partials/footer.html' %}
+        </div>
+    </body>
+{% endblock body %}

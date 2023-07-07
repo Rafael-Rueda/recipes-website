@@ -1,0 +1,24 @@
+{% extends "global/bases/head-base.html" %}
+
+{% block title %}
+    {% block head_title %}{% endblock head_title %}
+{% endblock title %}
+
+{% block body %}
+    <body>
+        <div class="content-wrapper">
+            {% include "global/partials/navbar.html" %}
+            {% include "global/partials/header.html" %}
+            {% block messages %}{% endblock messages %}
+            
+            {% block search_bar %}{% endblock search_bar %}
+
+            <main class="main">
+                {% block main_content %}{% endblock main_content %}
+            </main>
+            
+            {% block pagination %}{% endblock pagination %}
+            {% include "global/partials/footer.html" %}
+        </div>
+    </body>
+{% endblock body %}

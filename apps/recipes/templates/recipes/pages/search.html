@@ -1,0 +1,21 @@
+{% extends 'recipes/bases/recipe-base.html' %}
+
+{% block head_title %}{{title}}{% endblock head_title %}
+
+{% block search_bar %}
+    {% include "recipes/partials/search.html" %}
+{% endblock search_bar %}
+
+{% block messages %}
+    {% include "global/partials/flash-messages.html" %}
+{% endblock messages %}
+
+{% block main_content %}
+    <div class="main-container-recipes">
+        {% include "recipes/partials/recipe.html" %}
+    </div>
+{% endblock main_content %}
+
+{% block pagination%} 
+    {% include "recipes/partials/pagination.html" %}
+{% endblock pagination %}

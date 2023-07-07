@@ -1,0 +1,15 @@
+<div class="pagination-container">
+    {% if paginator.first_out_of_range %}
+        <a href="?page=1{{other_parameters}}">1</a><span class="pagination-outrange">...</span>
+    {% endif %}
+    {% for page in paginator.range %}
+        {% if page == paginator.selected_page %}
+            <a class="pagination-selected" href="?page={{page}}">{{page}}</a>
+        {% else %}
+            <a href="?page={{page}}{{other_parameters}}">{{page}}</a>
+        {% endif %}
+    {% endfor %}
+    {% if paginator.last_out_of_range %}
+        <span class="pagination-outrange">...</span><a href="?page={{paginator.last_page}}{{other_parameters}}">{{paginator.last_page}}</a>
+    {% endif %}
+</div>

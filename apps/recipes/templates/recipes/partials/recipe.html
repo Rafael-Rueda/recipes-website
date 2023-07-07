@@ -1,0 +1,84 @@
+{% for recipe in recipes %}
+<div class="recipe">
+    <div class="recipe-image">
+        <a href="{% url 'recipes:recipe' recipe.id %}">
+            {% if recipe.cover %}
+                <img src="{{recipe.cover.url}}" alt="teste">
+            {% else %}
+                <img src="https://placehold.co/1280x640/black/png" alt="teste">
+            {% endif %}
+        </a>
+    </div>
+    <div class="recipe-title">
+        <h3>{{recipe.title}}</h3>
+    </div>
+    <div class="recipe-author">
+        <span class="author-name">
+            <i class="fa-sharp fa-solid fa-user"></i>
+            {% if recipe.author is not None %}
+                {% if recipe.author.first_name and recipe.author.last_name %}
+                    <p>{{recipe.author.first_name}} {{recipe.author.last_name}}</p>
+                {% else %}
+                    <p>{{recipe.author.username}}</p>
+                {% endif %}
+            {% else %}
+                <p>Desconhecido</p>
+            {% endif %}
+        </span>
+        <span class="author-date">
+            <i class="fa-sharp fa-solid fa-calendar-days"></i>
+            <p>
+                {% if recipe.updated_at %}
+                    {{recipe.updated_at|date:"d/m/Y"}} às {{ recipe.updated_at|date:"H:i"}}
+                {% else %}
+                    {{recipe.created_at|date:"d/m/Y"}} às {{ recipe.created_at|date:"H:i"}}
+                {% endif %}
+            </p>
+        </span>
+        {% if recipe.category is not None %}
+            <span class="author-category">
+                <i class="fa-sharp fa-solid fa-layer-group"></i>
+                <a href="{% url 'recipes:category' recipe.category.id %}">
+                    <p>{{recipe.category}}</p>
+                </a>
+            </span>
+        {% endif %}
+    </div>
+    <div class="recipe-description">
+        <p>{{recipe.description}}</p>
+    </div>
+    <div class="recipe-prepare">
+        <span>
+            <p><i class="fa-sharp fa-solid fa-clock"></i> Preparo</p>
+            <p>{{recipe.preparation_time}} {{recipe.preparation_time_unit}}</p>
+        </span>
+        <span>
+            <p><i class="fa-sharp fa-solid fa-pizza-slice"></i> Porções</p>
+            <p>{{recipe.servings}} {{recipe.servings_unit}}</p>
+        </span>
+    </div>
+    {% if is_detail_page %}
+        <div class="recipe-howtoprepare">
+            {% if recipe.preparation_steps_is_html %}
+                <p>
+                    {{recipe.preparation_steps|safe}}
+                </p>
+            {% else %}
+                <p>
+                    {{recipe.preparation_steps}}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if not is_detail_page %}
+        <div class="recipe-footer">
+            <a href="{% url 'recipes:recipe' recipe.id %}"><p><i class="fa-sharp fa-solid fa-eye"></i> Ver mais...</p></a>
+        </div>
+    {% endif %}
+</div>
+
+{% comment %} 
+{% empty %}
+<h2 class="text-404"> No recipes found here )= </h2>  
+{% endcomment %}
+{% endfor %}

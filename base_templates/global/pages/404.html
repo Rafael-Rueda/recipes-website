@@ -1,0 +1,14 @@
+{% extends "global/bases/head-base.html" %}
+
+{% block title %}404{% endblock title %}
+
+{% block body %}
+    <div class="content-wrapper">
+        {% include "global/partials/navbar.html" %}
+        {% include "global/partials/header.html" %}
+        {% include "global/partials/flash-messages.html" %}
+        {% include "recipes/partials/search.html" %}
+        <h2 class="text-404">{{text}}</h2>
+        {% include "global/partials/footer.html" %}
+    </div>
+{% endblock body %}

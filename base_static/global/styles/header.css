@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: center;
+
+    padding: 3rem 0;
+
+    background-color: var(--color-primary-dark);
+
+    width: 100%;
+}
+
+.header-container {
+    width: fit-content;
+}
+
+.header-container-link {
+    font-size: 18px;
+    font-family: sans-serif;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-container-link > h1 {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}

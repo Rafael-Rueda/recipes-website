@@ -1,0 +1,28 @@
+{% for recipe in recipes %}
+
+<div class="dashboard-recipe">
+    <div class="dashboard-recipe-header">
+        {% if recipe.cover %}
+            <div class="dashboard-recipe-img">
+                <img src="{{recipe.cover.url}}" alt="{{recipe.title}}">
+            </div>
+        {% endif %}
+        <div class="dashboard-recipe-title">
+            <h3>{{recipe.title}}</h3>
+        </div>
+    </div>
+    <div class="dashboard-recipe-body">
+        {% if recipe.is_published %}
+        <h3 class="published-recipe">This recipe is published</h3>
+        {% else %}
+        <h3 class="not-published-recipe" >This recipe is not published</h3>
+        {% endif %}
+
+        <form action="" method="GET">
+            <input type="hidden" name="recipe" value="{{recipe.id}}">
+            <button type="submit">Edit recipe</button>
+        </form>
+    </div>
+</div>
+
+{% endfor %}

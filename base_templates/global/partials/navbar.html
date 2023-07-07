@@ -1,0 +1,44 @@
+<nav id="page-navbar" class="collapsed">
+    <ul>
+        {% if not request.user.is_authenticated %}
+        <li>
+            <a href="{% url 'authors:login' %}"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        </li>
+        <li>
+            <a href="{% url 'authors:register' %}"><i class="fa-solid fa-address-card"></i> Register</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li>
+            <div class="logout">
+                <form action="{% url 'authors:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type='submit' class='logout-button'><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dashboard">
+                <a href="{% url 'authors:dashboard' %}"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            </div>
+        </li>
+        {% endif %}
+        {% if request.user.is_staff %}
+        <li>
+            <a href="{% url 'authors:authors-admin' %}"><i class="fa-solid fa-lock"></i> Admin panel</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+<script>
+    const navbar = document.getElementById('page-navbar');
+    navbar.addEventListener('mouseover', () => {
+        navbar.classList.remove('collapsed')
+        navbar.classList.add('expanded')
+    })
+    navbar.addEventListener('mouseout', () => {
+        navbar.classList.remove('expanded')
+        navbar.classList.add('collapsed')
+    })
+</script>

@@ -1,0 +1,38 @@
+<form action="{% url 'recipes:search' %}" method="get" class="search-form" id="form_search">
+    <div class="search-form-content">
+        <input class="search-form-content-input" type="search" name="q" value="{{search_term}}" id="input_search" required>
+        <button class="search-form-content-button" type="submit"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+    </div>
+</form>
+
+<script>
+    function getSearchInput() {
+        const input = document.getElementById('input_search')
+        return input
+    }
+    function getSearchForm() {
+        const form = document.getElementById('form_search')
+        return form
+    }
+
+
+    function removeDefaultInvalid(input) {
+        input.addEventListener('invalid', (i) => {
+            i.preventDefault()
+        })
+    }
+    function checkSubmitEmpty(form) {
+        form.addEventListener('submit', (i) => {
+            input = getSearchInput()
+            if (! input.value.trim()) {
+                i.preventDefault()
+            } else {
+                input.value = input.value.trim()
+                form.submit()
+            }
+            
+        })
+    }
+    removeDefaultInvalid(getSearchInput());
+    checkSubmitEmpty(getSearchForm());
+</script>

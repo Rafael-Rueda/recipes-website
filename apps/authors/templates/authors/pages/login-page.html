@@ -1,0 +1,31 @@
+{% extends "global/bases/head-base.html" %}
+
+{% block title %}User Login{% endblock title %}
+
+{% block body %} 
+    <body>
+        <div class="content-wrapper">
+            {% include "global/partials/navbar.html" %}
+            {% include "global/partials/header.html" %}
+            {% include "global/partials/flash-messages.html" %}
+            <div></div>
+            <div class="form">
+                <h2 class="form-title">Login</h2>
+                <form action="{% url "authors:login" %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-fields">
+                        {% for field in form  %}
+                            <div class="form-field">
+                                <label for="{{field.id_for_label}}">{{field.label}}</label>
+                                {{field}}
+                                {{field.errors}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>               
+            {% include "global/partials/footer.html" %}
+        </div>
+    </body>
+{% endblock body %}

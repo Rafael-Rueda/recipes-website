@@ -1,0 +1,79 @@
+{% extends "global/bases/head-base.html" %}
+
+{% block title %}Admin Panel{% endblock title %}
+
+{% block body %}
+    <body>
+        <div class="content-wrapper">
+            {% include "global/partials/navbar.html" %}
+            {% include "global/partials/header.html" %}
+            {% include "global/partials/flash-messages.html" %}
+            <div></div>
+            <div class="admin-panel">
+                <div class="log-panel">
+                    <h1>Log panel</h1>
+                    <table>
+                        <thead>
+                            <th>User</th>
+                            <th>Last Login</th>
+                            <th>Last Logout</th>
+                            <th>IP</th>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                                <tr>
+                                    <td>{{log.user}}</td>
+                                    <td>{{log.login_time}}</td>
+                                    <td>{{log.logout_time}}</td>
+                                    <td>{{log.ip_address}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="recipes-panel">
+                    <h1>Recipes panel</h1>
+                    <div class="recipes-panel-container">
+                        {% for recipe in recipes %}
+                            <div class="dashboard-recipe">
+                                <div class="dashboard-recipe-header">
+                                    {% if recipe.cover %}
+                                        <div class="dashboard-recipe-img">
+                                            <img src="{{recipe.cover.url}}" alt="{{recipe.title}}">
+                                        </div>
+                                    {% endif %}
+                                    <div class="dashboard-recipe-title">
+                                        <a href="{% url 'authors:authors-admin-recipe' recipe.id %}"><h3>{{recipe.title}}</h3></a>
+                                    </div>
+                                </div>
+                                <div class="dashboard-recipe-body admin-page-recipe-body">
+
+                                    <form action="{% url 'authors:authors-admin-save' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="recipe" value="{{recipe.id}}">
+                                        <div>
+                                            <input {% if recipe.is_published %}checked{% endif %} type="checkbox" name="is_published" id="input_is_published">
+                                            <label for="input_is_published">Is published</label>
+                                        </div>
+                                        <div>
+                                            <input {% if recipe.preparation_steps_is_html %}checked{% endif %} type="checkbox" name="preparation_steps_is_html" id="input_preparation_steps_is_html">
+                                            <label for="input_preparation_steps_is_html">Is HTML</label>
+                                        </div>
+                                        <button type="submit">Save</button>
+                                    </form>
+
+                                    <form action="{% url 'authors:dashboard-delete' recipe.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-recipe">Delete recipe</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+            {% include "global/partials/footer.html" %}
+        </div>
+    </body>
+{% endblock body %}

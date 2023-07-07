@@ -1,0 +1,41 @@
+
+<div class="edit-form">
+    <h2 class="edit-form-title">Edit recipe</h2>
+    <form action="{% url 'authors:dashboard-update' recipe_selected %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="edit-form-fields">
+            {% for field in form %}
+                <div class="edit-form-field">
+                    {% if field.name == 'cover' %}
+                        {% if field.value %}
+                            <div class="edit-form-container">
+                                <div class="edit-form-cover-img">
+                                    <img src="{{field.value.url}}" alt="{{field.label}}">
+                                </div>
+                        {% endif %}
+                    {% endif %}
+                    {% if field.name == 'cover' %}
+                        <div>
+                    {% endif %}
+                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                    {{field}}
+                    {{field.errors}}
+                    {% if field.name == 'cover' %}
+                        {% if field.value %}
+                            </div>
+                        {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+            {% endfor %}
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <form action="{% url 'authors:dashboard-delete' recipe_selected %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="delete-recipe">Delete recipe</button>
+    </form>
+</div>
+
+

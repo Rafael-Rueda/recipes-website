@@ -1,0 +1,30 @@
+
+<div class="edit-form">
+    <h2 class="edit-form-title">Create recipe</h2>
+    <form action="{% url 'authors:dashboard-create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="edit-form-fields">
+            {% for field in form %}
+                <div class="edit-form-field">
+                    {% if field.name == 'cover' %}
+                        <div class="edit-form-container">
+                    {% endif %}
+                    {% if field.name == 'cover' %}
+                        <div>
+                    {% endif %}
+                    <label for="{{field.id_for_label}}">{{field.label}}</label>
+                    {{field}}
+                    {{field.errors}}
+                    {% if field.name == 'cover' %}
+                        </div>
+                        </div>
+                    {% endif %}
+                </div>
+                
+            {% endfor %}
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</div>
+
+
