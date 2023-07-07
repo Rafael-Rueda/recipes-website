@@ -64,7 +64,7 @@ def login(request):
                 messages.success(request, 'User logged in with success.')
                 return redirect('/')
             else:
-                messages.error(request, 'Username or password invalid. Please try again.')
+                messages.info(request, 'Username or password invalid. Please try again.')
                 return redirect('/login/')
     else:
         if request.user.is_authenticated:
