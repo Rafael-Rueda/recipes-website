@@ -119,7 +119,13 @@ def authors_admin_recipe(request, recipe_id):
 @receiver(user_logged_in)
 def login_callback(sender, request, user, **kwargs):
     session_key = request.session.session_key
-    user_ip = get_client_ip(request)[0]
+
+    x_forw_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forw_for is not None:
+        user_ip = x_forw_for.split(',')[0]
+    else:
+        user_ip = request.META.get('REMOTE_ADDR')
+    
     UserLog.objects.create(user=user, session_key=session_key, ip_address=user_ip)
 
 @receiver(user_logged_out)
