@@ -2,7 +2,8 @@ import os
 
 from django.contrib import messages
 from django.db.models import Q
-from django.http import Http404, HttpResponse
+from django.forms.models import model_to_dict
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 
 from apps.recipes import models
@@ -80,3 +81,31 @@ def search(request):
     pages, page_obj = make_pagination(request, recipes, PER_PAGINATOR, PER_PAGE)
     
     return render(request=request, template_name='recipes/pages/search.html', status=status_code, context={'title': search, 'search_term': search, 'recipes': page_obj, 'paginator': pages, 'other_parameters': f'&q={search}'})
+
+def recipesAPIv1(request):
+    dict_recipes = [model_to_dict(_recipe) for _recipe in models.Recipe.objects.all()]
+
+    for dict_recipe in dict_recipes:
+        dict_recipe['cover'] = request.build_absolute_uri('/') + dict_recipe['cover'].url[1:]
+        del dict_recipe['is_published']
+        del dict_recipe['preparation_steps_is_html']
+        
+
+    return JsonResponse(
+        dict_recipes,
+        safe=False
+    )
+
+def recipeAPIv1(request, id):
+    dict_recipes = [model_to_dict(models.Recipe.objects.get(id=id))]
+
+    for dict_recipe in dict_recipes:
+        dict_recipe['cover'] = request.build_absolute_uri('/') + dict_recipe['cover'].url[1:]
+        del dict_recipe['is_published']
+        del dict_recipe['preparation_steps_is_html']
+        
+
+    return JsonResponse(
+        dict_recipes,
+        safe=False
+    )
