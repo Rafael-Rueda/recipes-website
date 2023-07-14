@@ -1,0 +1,59 @@
+.comments {
+    width: 80%;
+    display: grid;
+    gap: 16px;
+}
+
+.comment {
+
+}
+
+.comment-header {
+
+}
+
+.comment-body {
+    width: 100%;
+    padding: 16px;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+.comment-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin: 4px;
+    margin-right: -16px;
+}
+
+.comment-dashboard form {
+    display: grid;
+    gap: 16px;
+}
+
+.comment-dashboard textarea {
+    padding: 8px;
+    font-size: 18px;
+    font-family: var(--font-primary);
+    outline: none;
+}
+
+.comments button {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
+.comment-dashboard button {
+    width: 100px;
+    justify-self: flex-end;
+    color: var(--color-white);
+    background-color: var(--color-primary-dark);
+    padding: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}

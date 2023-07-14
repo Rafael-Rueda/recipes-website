@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+
+from apps.comments.models import Comment
 
 
 class recipe_category(models.Model):
@@ -8,7 +11,12 @@ class recipe_category(models.Model):
     def __str__(self):
         return self.name
 
+class RecipeManager(models.Manager):
+    def get_published(self): # self é sempre um ".objects" no Manager.
+        return self.filter(is_published = True).order_by('-id')
 class Recipe(models.Model):
+    objects = RecipeManager() # Necessário instancia-lo em "objects" para linkar o Manager com o model.
+
     title = models.CharField(max_length=65)
     description = models.CharField(max_length=165)
     slug = models.SlugField(unique=True)
@@ -24,6 +32,7 @@ class Recipe(models.Model):
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
     category = models.ForeignKey(to=recipe_category, on_delete=models.SET_NULL, null=True, blank=True)
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
+    comments = GenericRelation(Comment)
 
     def __str__(self):
         return self.title

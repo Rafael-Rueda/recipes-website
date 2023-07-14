@@ -142,7 +142,7 @@ def dashboard(request):
     form = ''
     create_allowed = False
 
-    recipes = models.Recipe.objects.filter(author = request.user).order_by('-id')
+    recipes = models.Recipe.objects.filter(author = request.user).order_by('-id').only('title', 'cover', 'is_published', 'id')
     pages, page_obj = make_pagination(request, recipes, 7, 3)
 
     recipe_edit = None
