@@ -31,6 +31,7 @@
                         </tbody>
                     </table>
                 </div>
+                {% include 'authors/partials/paginationlogs.html' %}
                 <div class="recipes-panel">
                     <h1>Recipes panel</h1>
                     <div class="recipes-panel-container">
@@ -69,9 +70,9 @@
                                 </div>
                             </div>
                         {% endfor %}
-                    </div>
-                    
+                    </div>                    
                 </div>
+                {% include 'authors/partials/paginationrecipes.html' %}
             </div>
             {% include "global/partials/footer.html" %}
         </div>

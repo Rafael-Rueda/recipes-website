@@ -17,7 +17,7 @@ from ipware import get_client_ip
 from apps.authors.forms import LoginForm, RecipeForm, RegisterForm
 from apps.authors.models import UserLog
 from apps.recipes import models
-from utils.pagination import make_pagination
+from utils.pagination import make_many_pagination, make_pagination
 
 
 def register(request):
@@ -84,9 +84,23 @@ def logout(request):
 
 @staff_member_required
 def authors_admin(request):
-    logs = UserLog.objects.all()
+    logs = UserLog.objects.all().order_by('-id')
     recipes = models.Recipe.objects.order_by('-id')
-    return render(request, 'authors/pages/admin-page.html', context={'logs': logs, 'recipes': recipes})
+
+    result_dict = make_many_pagination(('logs', logs), ('recipes', recipes), request=request, per_paginator=9, per_page=12)
+    pages = result_dict['pages']
+    pages_obj = result_dict['pages_obj']
+    page_numbers = result_dict['page_numbers']
+
+    other_parameters = {}
+    for id, page_number in page_numbers.items():
+        other_parameters[id] = f'&{id}={page_number}'
+
+    return render(request, 'authors/pages/admin-page.html', context={'paginators': pages, 
+                                                                     'other_parameters': other_parameters,
+                                                                     'logs': pages_obj['page_objlogs'], 
+                                                                     'recipes': pages_obj['page_objrecipes'],
+                                                                     })
 
 @staff_member_required
 def authors_admin_save(request):
@@ -95,7 +109,6 @@ def authors_admin_save(request):
         return render(request=request, template_name='global/pages/404.html', status=404)
     
     # Form data
-    teste = request.POST
     is_published = request.POST.get('is_published', False) == 'on'
     preparation_steps_is_html = request.POST.get('preparation_steps_is_html', False) == 'on'
     recipe_id = request.POST.get('recipe', None)

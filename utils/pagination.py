@@ -40,3 +40,29 @@ def make_pagination(request, queryset, per_paginator, per_page = 6):
     )
 
     return pages, page_obj
+
+def make_many_pagination(*querysets_with_names, request, per_paginator, per_page=9):
+    page_numbers = {}
+    paginators = {}
+    pages_obj = {}  # Return
+    pages = {}  # Return
+
+    for id, (queryset_name, queryset) in enumerate(querysets_with_names):
+        page_number = request.GET.get(f'page{queryset_name}', 1) 
+        page_numbers[f'page{queryset_name}'] = page_number
+
+        paginator = Paginator(object_list=queryset, per_page=per_page)
+        paginators[f'paginator{queryset_name}'] = paginator
+
+        page_obj = paginator.get_page(page_number)
+        pages_obj[f'page_obj{queryset_name}'] = page_obj
+
+        page = make_pagination_range(
+            total_pages=int(paginator.num_pages),
+            display_pages=per_paginator,
+            current_page=int(page_number)
+        )
+        pages[f'page{queryset_name}'] = page
+
+    return {'pages': pages, 'pages_obj': pages_obj, 'page_numbers': page_numbers}
+    

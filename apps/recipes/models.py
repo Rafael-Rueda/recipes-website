@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 
-from apps.comments.models import Comment
+from apps.comments.models import Comment, Tag
 
 
 class recipe_category(models.Model):
@@ -33,6 +33,8 @@ class Recipe(models.Model):
     category = models.ForeignKey(to=recipe_category, on_delete=models.SET_NULL, null=True, blank=True)
     author = models.ForeignKey(to=User, on_delete=models.SET_NULL, null=True)
     comments = GenericRelation(Comment)
+    tags = GenericRelation(Tag)
 
     def __str__(self):
         return self.title
+

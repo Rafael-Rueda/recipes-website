@@ -134,7 +134,7 @@ def normalize_dict_recipes(request, dict_recipes):
         dict_recipe['updated_at'] = str(models.Recipe.objects.get(id=dict_recipe['id']).updated_at)
 
 def recipesAPIv1(request):
-    dict_recipes = [model_to_dict(_recipe) for _recipe in models.Recipe.objects.all()]
+    dict_recipes = [model_to_dict(_recipe) for _recipe in models.Recipe.objects.all().select_related('author', 'category')]
 
     normalize_dict_recipes(request, dict_recipes)
 

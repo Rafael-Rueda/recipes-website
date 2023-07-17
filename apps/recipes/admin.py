@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericStackedInline
 
-from apps.comments.models import Comment
+from apps.comments.models import Comment, Tag
 
 from . import models
 
@@ -9,6 +9,11 @@ from . import models
 class CommentsInline(GenericStackedInline):
     model = Comment
     extra = 1
+
+class TagsInline(GenericStackedInline):
+    model = Tag
+    extra = 1
+
 class recipe_categoryAdmin(admin.ModelAdmin):
     pass
 
@@ -21,7 +26,8 @@ class RecipeAdmin(admin.ModelAdmin):
     list_editable = ('slug', 'is_published')
 
     inlines = [
-        CommentsInline
+        CommentsInline,
+        TagsInline,
     ]
 
 admin.site.register(models.Recipe, RecipeAdmin)

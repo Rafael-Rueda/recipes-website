@@ -1,0 +1,17 @@
+<div class="pagination-container">
+    {% if paginators.pagerecipes.first_out_of_range %}
+        <a href="?pagerecipes=1{{other_parameters.pagelogs}}">1</a><span class="pagination-outrange">...</span>
+    {% endif %}
+
+    {% for page in paginators.pagerecipes.range %}
+        {% if page == paginators.pagerecipes.selected_page %}
+            <a class="pagination-selected" href="?pagerecipes={{page}}{{other_parameters.pagelogs}}">{{page}}</a>
+        {% else %}
+            <a href="?pagerecipes={{page}}{{other_parameters.pagelogs}}">{{page}}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if paginators.pagerecipes.last_out_of_range %}
+        <span class="pagination-outrange">...</span><a href="?pagerecipes={{paginators.pagerecipes.last_page}}{{other_parameters.pagelogs}}">{{paginators.pagerecipes.last_page}}</a>
+    {% endif %}
+</div>

@@ -17,7 +17,7 @@ def edit_comment(request, id):
 
 def save_comment(request, id):
     if request.method == 'POST':
-        comment = Comment.objects.get(id=id)
+        comment = Comment.objects.get_by_id(id)
         comment.content = request.POST.get('content')
         comment.save()
 
@@ -28,7 +28,7 @@ def save_comment(request, id):
     
 def delete_comment(request, id):
     if request.method == 'POST':
-        comment = Comment.objects.get(id=id)
+        comment = Comment.objects.get_by_id(id)
         comment.delete()
 
         last_page = request.META.get('HTTP_REFERER')
