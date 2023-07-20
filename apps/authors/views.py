@@ -45,6 +45,7 @@ def register_create(request):
 
         del(request.session['data_form'])
         messages.success(request, 'User created with success')
+        return redirect('authors:login')
 
     return redirect('authors:register')
 
