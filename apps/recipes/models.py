@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from apps.comments.models import Comment, Tag
@@ -37,4 +38,9 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+    
+    # Model validation
 
+    # def clean(self, *args, **kwargs):
+    #     if not self.pk and Recipe.objects.filter(title__iexact=self.title).exists():
+    #         raise ValidationError({'title': 'A recipe with that title already exists.'})

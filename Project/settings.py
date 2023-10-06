@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     # Temos apps tambem !
     'apps.recipes.apps.RecipesConfig',
     'apps.authors.apps.AuthorsConfig',
